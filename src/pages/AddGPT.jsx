@@ -194,9 +194,9 @@ const AddGPT = () => {
           <span className="mr-[16px] text-[#686B6E] font-medium ">
             Go to GPT Store
           </span>
-          <a href="/list" className="text-white">
+          <NavLink to="/list" className="text-white">
             <span>GPT Store</span>
-          </a>
+          </NavLink>
         </div>
       </div>
     </div>

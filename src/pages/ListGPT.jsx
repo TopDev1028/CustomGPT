@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import TypewriterComponent from "typewriter-effect";
 import backgroundImage from "./../assets/ListGPT.jpg";
+import logoImage from "./../assets/logo.png";
 
 import { db } from "./../firebase/firebase";
 import {
@@ -43,6 +44,8 @@ const ListGPT = () => {
         console.error("Error fetching data:", error);
       }
     };
+
+    console.log(truncateString("what is machine learing", 10));
 
     fetchData();
   }, []);
@@ -121,7 +124,7 @@ const ListGPT = () => {
       result.sort((a, b) => b.popular - a.popular);
       setgpts(result);
     }
-  }, [order]);
+  }, [order, searchString]);
 
   return (
     <div
@@ -210,7 +213,7 @@ const ListGPT = () => {
           <div className="">
             <div className="relative">
               <input
-                className="pl-[39px] sm:w-[200px] lg:w-[800px] py-[27px] rounded-[8px] border-[#363A3D] border-[1px]  focus:border-[1px] focus:shadow-custom_login focus:border-[#82DBF7] h-[42px] bg-[#1A1D21] text-white text-[18px] p-[18px]"
+                className="pl-[39px] w-[310px] py-[27px] rounded-[8px] border-[#363A3D] border-[1px]  focus:border-[1px] focus:shadow-custom_login focus:border-[#82DBF7] h-[42px] bg-[#1A1D21] text-white text-[18px] p-[18px]"
                 placeholder="GPT's Search"
                 name="name"
                 onChange={(e) => {
@@ -230,9 +233,9 @@ const ListGPT = () => {
           <div>
             <NavLink
               to="/add"
-              className="w-[120px] mt-[20px] sm:mt-[0px] bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white hover:from-pink-600 hover:to-indigo-600 rounded-[12px] h-[57px]  font-medium text-[18px] flex justify-center items-center"
+              className="w-[310px] mt-[20px] sm:mt-[0px] bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white hover:from-pink-600 hover:to-indigo-600 rounded-[12px] h-[57px]  font-medium text-[18px] flex justify-center items-center"
             >
-              Add
+              List your GPT's For Free
             </NavLink>
           </div>
         </div>
@@ -264,20 +267,21 @@ const ListGPT = () => {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[40px] mx-[50px] mt-[-20px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-[20px] mx-[50px] mt-[-20px]">
         {gpts.map((gpt, index) => (
           <div
             key={index}
-            className="h-[290px] bg-[#353740] rounded-[20px] mt-[0px] relative"
+            className="h-[280px] bg-[#353740] rounded-[20px] mt-[0px] relative"
           >
             <div className="flex items-center">
               <img
-                src={`/images/1.png`}
+                src={logoImage}
+                alt="back"
                 className="w-1/4 rounded-[15px] m-[10px]"
               />
               <div className="flex flex-col w-3/4 items-start">
-                <span className="text-[#cccccc] text-[20px] m-[15px] ml-0 mt-[0px] font-bold w-[200px]">
-                  {gpt.name}
+                <span className="text-[#cccccc] text-[20px] m-[15px] ml-0 mt-[10px] font-bold w-[200px]">
+                  {truncateString(gpt.name, 20)}
                 </span>
                 <div className="mt-[-12px] text-white w-3/4 justify-center">
                   <button
@@ -289,8 +293,8 @@ const ListGPT = () => {
                 </div>
               </div>
             </div>
-            <div className="text-[#bbbbbb] m-[20px] mt-[0px] w-[90%] break-words text-[19px]">
-              <div>{truncateString(gpt.description, 99)}</div>
+            <div className="text-[#bbbbbb] m-[20px] mt-[10px] w-[90%] break-words text-[16px]">
+              <div>{truncateString(gpt.description, 170)}</div>
             </div>
             <div className="absolute right-[10px] bottom-[10px] w-[200px] bg-[#000000] rounded-lg h-[40px] text-white justify-between items-center flex p-[10px]">
               <span>Developer info</span>
